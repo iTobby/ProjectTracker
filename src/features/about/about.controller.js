@@ -1,4 +1,6 @@
 
+import * as types from '../../utils/storyTypes';
+
 export default class AboutController {
 
 
@@ -7,6 +9,7 @@ export default class AboutController {
     this.$q = $q;
     this.$log = $log;
     this.project = {};
+    this.stories = [];
     this.isLoading = false;
 
     //this.activate();
@@ -19,20 +22,39 @@ export default class AboutController {
     return this.project === {};
   }
 
+
+  getCurrentStories() {
+    const vm = this;
+    this.getStories(types.CURRENT)
+      .then((stories) => { vm.stories = stories; });
+  }
+
+  getDoneStories() {
+    const vm = this;
+    this.getStories(types.DONE)
+      .then((stories) => { vm.stories = stories; });
+  }
+
   clickMe() {
     const vm = this;
-    vm.isLoading = true;
-    this.getPivotalProject().then((prjt) => {
+    this.getProject().then((prjt) => {
       vm.project = prjt;
-      vm.isLoading = false;
     });
   }
 
-  getPivotalProject() {
-    const self = this;
-    return this.dataSvc.getProjectDetail()
+  getStories(type) {
+    const vm = this;
+    vm.stories = [];
+    return vm.dataSvc.getIterationStories(type)
         .then((data) => { return data; })
-        .catch((error) => { vm.isLoading = false; self.$log.debug(error); });
+        .catch((error) => { vm.isLoading = false; vm.$log.debug(error); });
+  }
+
+  getProject() {
+    const vm = this;
+    return vm.dataSvc.getProjectDetail()
+        .then((data) => { return data; })
+        .catch((error) => { vm.isLoading = false; vm.$log.debug(error); });
   }
 }
 

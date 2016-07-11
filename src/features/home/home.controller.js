@@ -2,7 +2,7 @@ export default class HomeController {
 
   constructor(rndmNameSvc) {
     this.random = rndmNameSvc;
-    this.name = 'World';
+    this.name = 'Pivotal Tracker Stories';
   }
 
   changeName() {

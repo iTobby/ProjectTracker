@@ -1,12 +1,32 @@
-<div class="jumbotron text-center">
+<div class="well text-center">
     <h1>The Homey Page</h1>
 </div>
 
-<button class="btn btn-primary" ng-click="vm.clickMe()">Get Pivotal Project</button>
+<button class="btn btn-primary" ng-click="vm.getCurrentStories()">Get Current Stories</button>
+<button class="btn btn-primary" ng-click="vm.getDoneStories()">Get Done Stories</button>
 
 <div>
   <span>Project Title</span>
-  <span>{{vm.project.name}}</span>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Kind</th>
+        <th>Name</th>
+        <th>Current State</th>
+        <th>Story Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="story in vm.stories">
+        <td>{{story.kind}}</td>
+        <td>{{story.name}}</td>
+        <td>{{story.current_state}}</td>
+        <td>{{story.story_type}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
 </div>
 
 <a href="/">< Home Page</a>

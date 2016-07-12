@@ -8,5 +8,5 @@ export default function routes($stateProvider) {
       template: require('./about.html'),
       controller: 'AboutController',
       controllerAs: 'vm'
-    });
+    })
 }

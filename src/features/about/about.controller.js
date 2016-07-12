@@ -1,61 +1,18 @@
-
-import * as types from '../../utils/storyTypes';
-
 export default class AboutController {
 
-
-  constructor($q, $log, pivotalSvc) {
-    this.dataSvc = pivotalSvc;
-    this.$q = $q;
-    this.$log = $log;
-    this.project = {};
-    this.stories = [];
-    this.isLoading = false;
-
-    //this.activate();
-  }
-  //
-  // activate() {
-  //
-  // }
-  isProjectEmpty() {
-    return this.project === {};
+  constructor(rndmNameSvc) {
+    this.random = rndmNameSvc;
+    this.name = 'Pivotal Tracker Stories';
   }
 
-
-  getCurrentStories() {
-    const vm = this;
-    this.getStories(types.CURRENT)
-      .then((stories) => { vm.stories = stories; });
+  changeName() {
+    this.name = 'angular-tips';
   }
 
-  getDoneStories() {
-    const vm = this;
-    this.getStories(types.DONE)
-      .then((stories) => { vm.stories = stories; });
+  randomName() {
+    this.name = this.random.getName();
   }
 
-  clickMe() {
-    const vm = this;
-    this.getProject().then((prjt) => {
-      vm.project = prjt;
-    });
-  }
-
-  getStories(type) {
-    const vm = this;
-    vm.stories = [];
-    return vm.dataSvc.getIterationStories(type)
-        .then((data) => { return data; })
-        .catch((error) => { vm.isLoading = false; vm.$log.debug(error); });
-  }
-
-  getProject() {
-    const vm = this;
-    return vm.dataSvc.getProjectDetail()
-        .then((data) => { return data; })
-        .catch((error) => { vm.isLoading = false; vm.$log.debug(error); });
-  }
 }
 
-AboutController.$inject = ['$q', '$log', 'PivotalDataSvc'];
+AboutController.$inject = ['randomNamesSvc'];

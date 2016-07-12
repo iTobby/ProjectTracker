@@ -1,52 +1,25 @@
 import angular from 'angular';
 import * as types from '../utils/storyTypes';
+import {api} from '../utils/project';
 
 const PROJECT_ID = '442903';
 const ROOT_URL = 'https://www.pivotaltracker.com/services/v5';
-
-const api = {
-  project: {
-    method: 'GET',
-    url: `${ROOT_URL}/projects/${PROJECT_ID}`
-  },
-  iterations : {
-    method: 'GET',
-    // cache: true,
-    url: `${ROOT_URL}/projects/${PROJECT_ID}/iterations`
-  },
-  doneCurrentStories : {
-    method: 'GET',
-    // cache: true,
-    url: `${ROOT_URL}/projects/${PROJECT_ID}/iterations?scope=done_current`
-  },
-  doneStories : {
-    method: 'GET',
-    // cache: true,
-    url: `${ROOT_URL}/projects/${PROJECT_ID}/iterations?scope=done`
-  },
-  currentStories : {
-    method: 'GET',
-    // cache: true,
-    url: `${ROOT_URL}/projects/${PROJECT_ID}/iterations?scope=current`
-  }
-};
 
 class PivotalData {
 
   constructor($http, $log) {
     this.$http = $http;
     this.$log = $log;
-    this.pivotalApi = api;
   }
 
   getProjectDetail() {
-    return this.$http(this.pivotalApi.project)
+    return this.$http(api.project)
       .then((response) => { return response.data; })
       .catch((error) => { return error; });
   }
 
   getProjectIterations() {
-    return this.$http(this.pivotalApi.iterations)
+    return this.$http(api.iterations)
       .then((response) => { return response.data; })
       .catch((error) => { return error; });
   }
@@ -63,7 +36,7 @@ class PivotalData {
 
   getCurrentStories() {
     const self = this;
-    return self.$http(self.pivotalApi.currentCompletedStories)
+    return self.$http(api.currentCompletedStories)
       .then((response) => { return self.getStories(response.data); })
       .catch((error) => { return error; });
   }
@@ -73,16 +46,16 @@ class PivotalData {
 
     switch (type) {
       case types.CURRENT:
-        return self.pivotalApi.currentStories;
+        return api.currentStories;
         break;
       case types.DONE:
-        return self.pivotalApi.doneStories;
+        return api.doneStories;
         break;
       case types.DONE_CURRENT:
-        return self.pivotalApi.doneCurrentStories;
+        return api.doneCurrentStories;
         break;
       default:
-        return self.pivotalApi.currentStories;
+        return api.currentStories;
     }
   }
 

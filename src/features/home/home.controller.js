@@ -22,6 +22,19 @@ export default class HomeController {
     return this.project === {};
   }
 
+  panelTypeClass(type) {
+    switch (type) {
+      case "bug":
+        return "panel-warning";
+      case "feature":
+        return "panel-primary";
+      case "chore":
+        return "panel-success";
+      default:
+        return "panel-danger"
+    }
+  }
+
 
   getCurrentStories() {
     const vm = this;

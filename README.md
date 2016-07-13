@@ -7,7 +7,7 @@
 # Clone Repo
 $ git clone https://github.com/iTobby/ProjectTracker.git new-app
 
-# Change directory to newly clone
+# Change directory to newly cloned folder
 $ cd new-app
 
 # Install the dependencies with npm

@@ -6,7 +6,7 @@ export default class AboutController {
   }
 
   changeName() {
-    this.name = 'angular-tips';
+    this.name = 'angular-test';
   }
 
   randomName() {

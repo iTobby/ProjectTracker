@@ -9,18 +9,50 @@ export default class HomeController {
     this.$q = $q;
     this.$log = $log;
     this.project = {};
-    this.stories = [];
+    this.doneStories = [];
+    this.currentStories = [];
     this.isLoading = false;
 
-    //this.activate();
+    this.activate();
   }
-  //
-  // activate() {
-  //
-  // }
+
+  activate() {
+    const vm = this;
+
+    return vm.$q.all(
+      [this.getDoneStories(),
+        this.getCurrentStories()]
+    ).then((res) => {
+      vm.currentStories = res[0];
+      vm.doneStories = res[1];
+    });
+    // this.getDoneStories();
+    // this.getCurrentStories();
+  }
+
+
+
   isProjectEmpty() {
     return this.project === {};
   }
+
+  getCurrentStories() {
+    return this.getStories(types.CURRENT);
+  }
+
+  getDoneStories() {
+    return this.getStories(types.DONE);
+      // .then((stories) => { vm.stories = stories; });
+  }
+
+  getStories(type) {
+    const vm = this;
+    vm.stories = [];
+    return vm.dataSvc.getIterationStories(type)
+        .then((data) => { return data; })
+        .catch((error) => { vm.isLoading = false; vm.$log.debug(error); });
+  }
+
 
   panelTypeClass(type) {
     switch (type) {
@@ -35,32 +67,11 @@ export default class HomeController {
     }
   }
 
-
-  getCurrentStories() {
-    const vm = this;
-    this.getStories(types.CURRENT)
-      .then((stories) => { vm.stories = stories; });
-  }
-
-  getDoneStories() {
-    const vm = this;
-    this.getStories(types.DONE)
-      .then((stories) => { vm.stories = stories; });
-  }
-
   clickMe() {
     const vm = this;
     this.getProject().then((prjt) => {
       vm.project = prjt;
     });
-  }
-
-  getStories(type) {
-    const vm = this;
-    vm.stories = [];
-    return vm.dataSvc.getIterationStories(type)
-        .then((data) => { return data; })
-        .catch((error) => { vm.isLoading = false; vm.$log.debug(error); });
   }
 
   getProject() {

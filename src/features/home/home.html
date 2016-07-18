@@ -1,28 +1,65 @@
-<div id="home-header" class="well">
-    <h1>Home Page</h1>
-</div>
 
-<h2>Stories</h2>
-
-<div class="row">
-  <button class="btn btn-primary" ng-click="vm.getDoneStories()">Get Done Stories</button>
-  <button class="btn btn-primary" ng-click="vm.getCurrentStories()">Get Current Stories</button>
-</div>
+<div class="row col-md-12">
 
 
+  <!-- Current Stories -->
+  <div class="row col-md-12">
+    <div class="caption">
+      <a href="/current"><h3>Current Stories</h3></a>
+    </div>
+  </div>
 
-<div ng-repeat="story in vm.stories">
-  <div ng-class="{ 'row': ($index + 1) % 4 == 0 }">
-    <div class="col-md-3">
-      <div class="panel capitalize" ng-class="vm.panelTypeClass(story.story_type)">
-        <div class="panel-heading">{{story.story_type}}</div>
-        <div class="panel-body panel-height">{{story.name}}</div>
+  <div class="row col-md-12">
+    <div class="col-md-10">
+      <div ng-repeat="story in vm.currentStories | limitTo: 4">
+        <div ng-class="{ 'row': ($index + 1) % 4 == 0 }">
+          <div class="col-md-3">
+            <div class="sticky">{{story.name}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <nav>
+        <ul class="pager">
+          <li class="next"><a href="/current">See all current stories<span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+
+
+  <!-- Done Stories -->
+  <div class="row col-md-12">
+    <div class="caption">
+      <a href="/done"><h3>Done Stories</h3></a>
+    </div>
+  </div>
+
+  <div class="row col-md-12">
+    <div class="col-md-10">
+      <div ng-repeat="story in vm.doneStories | limitTo: 4">
+        <div ng-class="{ 'row': ($index + 1) % 4 == 0 }">
+          <div class="col-md-3">
+            <div class="sticky">{{story.name}}</div>
+            <!-- <div class="panel capitalize" ng-class="vm.panelTypeClass(story.story_type)">
+            <div class="panel-heading">{{story.story_type}}</div>
+            <div class="panel-body panel-height">{{story.name}}</div>
+          </div> -->
+        </div>
       </div>
     </div>
   </div>
+  <div class="col-md-2">
+    <nav>
+      <ul class="pager">
+        <!-- <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li> -->
+        <li class="next"><a href="/done">See all done stories<span aria-hidden="true">&rarr;</span></a></li>
+      </ul>
+    </nav>
+  </div>
+
 </div>
 
-
-<div class="row">
-  <a href="/about">About Page</a>
 </div>

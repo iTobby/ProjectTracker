@@ -57,13 +57,13 @@ export default class HomeController {
   panelTypeClass(type) {
     switch (type) {
       case "bug":
-        return "panel-warning";
+        return "label-warning";
       case "feature":
-        return "panel-primary";
+        return "label-primary";
       case "chore":
-        return "panel-success";
+        return "label-default";
       default:
-        return "panel-danger"
+        return "label-danger"
     }
   }
 

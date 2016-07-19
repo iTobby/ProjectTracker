@@ -14,7 +14,11 @@
       <div ng-repeat="story in vm.currentStories | limitTo: 4">
         <div ng-class="{ 'row': ($index + 1) % 4 == 0 }">
           <div class="col-md-3">
-            <div class="sticky">{{story.name}}</div>
+
+            <div class="sticky">
+              <p><span class="label" ng-class="vm.panelTypeClass(story.story_type)">{{story.story_type}}</span></p>
+              {{story.name}}
+            </div>
           </div>
         </div>
       </div>
@@ -42,7 +46,10 @@
       <div ng-repeat="story in vm.doneStories | limitTo: 4">
         <div ng-class="{ 'row': ($index + 1) % 4 == 0 }">
           <div class="col-md-3">
-            <div class="sticky">{{story.name}}</div>
+            <div class="sticky">
+              <p><span class="label" ng-class="vm.panelTypeClass(story.story_type)">{{story.story_type}}</span></p>
+              {{story.name}}
+            </div>
             <!-- <div class="panel capitalize" ng-class="vm.panelTypeClass(story.story_type)">
             <div class="panel-heading">{{story.story_type}}</div>
             <div class="panel-body panel-height">{{story.name}}</div>

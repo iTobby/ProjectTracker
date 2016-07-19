@@ -2,21 +2,21 @@
 <div class="row col-md-12">
 
 
-  <!-- Current Stories -->
+  <!-- In Progress Stories -->
   <div class="row col-md-12">
     <div class="caption">
-      <a href="/current"><h3>Current Stories</h3></a>
+      <a href="/current"><h3>In Progress</h3></a>
     </div>
   </div>
 
   <div class="row col-md-12">
     <div class="col-md-10">
-      <div ng-repeat="story in vm.currentStories | limitTo: 4">
+      <div ng-repeat="story in vm.storiesInProgress | limitTo: 4">
         <div ng-class="{ 'row': ($index + 1) % 4 == 0 }">
           <div class="col-md-3">
 
             <div class="sticky">
-              <p><span class="label" ng-class="vm.panelTypeClass(story.story_type)">{{story.story_type}}</span></p>
+              <p><span class="label" ng-class="vm.getStoryTypeClass(story.story_type)">{{story.story_type}}</span></p>
               {{story.name}}
             </div>
           </div>
@@ -26,7 +26,7 @@
     <div class="col-md-2">
       <nav>
         <ul class="pager">
-          <li class="next"><a href="/current">See all current stories<span aria-hidden="true">&rarr;</span></a></li>
+          <li class="next"><a href="/current">View all current stories<span aria-hidden="true">&rarr;</span></a></li>
         </ul>
       </nav>
     </div>
@@ -34,20 +34,20 @@
   </div>
 
 
-  <!-- Done Stories -->
+  <!-- Test Stories -->
   <div class="row col-md-12">
     <div class="caption">
-      <a href="/done"><h3>Done Stories</h3></a>
+      <a href="/test"><h3>Test</h3></a>
     </div>
   </div>
 
   <div class="row col-md-12">
     <div class="col-md-10">
-      <div ng-repeat="story in vm.doneStories | limitTo: 4">
+      <div ng-repeat="story in vm.storiesInTest | limitTo: 4">
         <div ng-class="{ 'row': ($index + 1) % 4 == 0 }">
           <div class="col-md-3">
             <div class="sticky">
-              <p><span class="label" ng-class="vm.panelTypeClass(story.story_type)">{{story.story_type}}</span></p>
+              <p><span class="label" ng-class="vm.getStoryTypeClass(story.story_type)">{{story.story_type}}</span></p>
               {{story.name}}
             </div>
             <!-- <div class="panel capitalize" ng-class="vm.panelTypeClass(story.story_type)">
@@ -62,7 +62,38 @@
     <nav>
       <ul class="pager">
         <!-- <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li> -->
-        <li class="next"><a href="/done">See all done stories<span aria-hidden="true">&rarr;</span></a></li>
+        <li class="next"><a href="/test">View all test stories<span aria-hidden="true">&rarr;</span></a></li>
+      </ul>
+    </nav>
+  </div>
+
+</div>
+
+
+  <!-- Done Stories -->
+  <div class="row col-md-12">
+    <div class="caption">
+      <a href="/done"><h3>Done</h3></a>
+    </div>
+  </div>
+
+  <div class="row col-md-12">
+    <div class="col-md-10">
+      <div ng-repeat="story in vm.storiesDone | limitTo: 4">
+        <div ng-class="{ 'row': ($index + 1) % 4 == 0 }">
+          <div class="col-md-3">
+            <div class="sticky">
+              <p><span class="label" ng-class="vm.getStoryTypeClass(story.story_type)">{{story.story_type}}</span></p>
+              {{story.name}}
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <nav>
+      <ul class="pager">
+        <li class="next"><a href="/done">View all completed stories<span aria-hidden="true">&rarr;</span></a></li>
       </ul>
     </nav>
   </div>

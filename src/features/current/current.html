@@ -1,0 +1,21 @@
+
+<div class="row col-md-12">
+
+  <!-- Current Stories -->
+  <div class="row col-md-12">
+      <h3>All Current Stories</h3>
+  </div>
+
+  <div class="row col-md-12">
+    <div ng-repeat="story in vm.currentStories">
+      <div ng-class="{ 'row': ($index + 1) % 4 == 0 }">
+        <div class="col-md-3">
+          <div class="sticky">
+            <p><span class="label" ng-class="vm.getStoryTypeClass(story.story_type)">{{story.story_type}}</span></p>
+            {{story.name}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

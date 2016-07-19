@@ -1,5 +1,6 @@
 
 import * as types from '../../utils/storyTypes';
+import {storyTypeClass} from '../../utils/sundry';
 
 export default class HomeController {
 
@@ -9,8 +10,9 @@ export default class HomeController {
     this.$q = $q;
     this.$log = $log;
     this.project = {};
-    this.doneStories = [];
-    this.currentStories = [];
+    this.storiesInProgress = [];
+    this.storiesDone = [];
+    this.storiesInTest = [];
     this.isLoading = false;
 
     this.activate();
@@ -20,66 +22,50 @@ export default class HomeController {
     const vm = this;
 
     return vm.$q.all(
-      [this.getDoneStories(),
-        this.getCurrentStories()]
+      [
+        vm.getStories(types.INPROGRESS),
+        vm.getStories(types.DONE),
+        vm.getStories(types.TESTING)
+      ]
     ).then((res) => {
-      vm.currentStories = res[0];
-      vm.doneStories = res[1];
+      vm.storiesInProgress = res[0];
+      vm.storiesDone = res[1];
+      vm.storiesInTest = res[2];
     });
-    // this.getDoneStories();
-    // this.getCurrentStories();
   }
-
-
 
   isProjectEmpty() {
     return this.project === {};
   }
 
-  getCurrentStories() {
-    return this.getStories(types.CURRENT);
-  }
-
-  getDoneStories() {
-    return this.getStories(types.DONE);
-      // .then((stories) => { vm.stories = stories; });
-  }
-
   getStories(type) {
     const vm = this;
-    vm.stories = [];
     return vm.dataSvc.getIterationStories(type)
         .then((data) => { return data; })
-        .catch((error) => { vm.isLoading = false; vm.$log.debug(error); });
+        .catch((error) => { vm.$log.debug(error); });
   }
 
-
-  panelTypeClass(type) {
-    switch (type) {
-      case "bug":
-        return "label-warning";
-      case "feature":
-        return "label-primary";
-      case "chore":
-        return "label-default";
-      default:
-        return "label-danger"
-    }
+  getStoryTypeClass(type) {
+    return storyTypeClass(type);
   }
 
-  clickMe() {
-    const vm = this;
-    this.getProject().then((prjt) => {
-      vm.project = prjt;
-    });
+  isHomePage() {
+    return true;
   }
 
-  getProject() {
-    const vm = this;
-    return vm.dataSvc.getProjectDetail()
-        .then((data) => { return data; })
-        .catch((error) => { vm.isLoading = false; vm.$log.debug(error); });
-  }
+  // clickMe() {
+  //   const vm = this;
+  //   this.getProject().then((prjt) => {
+  //     vm.project = prjt;
+  //   });
+  // }
+  //
+  // getProject() {
+  //   const vm = this;
+  //   return vm.dataSvc.getProjectDetail()
+  //       .then((data) => { return data; })
+  //       .catch((error) => { vm.isLoading = false; vm.$log.debug(error); });
+  // }
 }
 
 HomeController.$inject = ['$q', '$log', 'PivotalDataSvc'];

@@ -10,19 +10,27 @@ export const api = {
     // cache: true,
     url: `${ROOT_URL}/projects/${PROJECT_ID}/iterations`
   },
-  doneCurrentStories : {
+  storiesInTesting : {
     method: 'GET',
     // cache: true,
     url: `${ROOT_URL}/projects/${PROJECT_ID}/iterations?scope=done_current`
   },
-  doneStories : {
+  storiesDone : {
     method: 'GET',
     // cache: true,
     url: `${ROOT_URL}/projects/${PROJECT_ID}/iterations?scope=done`
   },
-  currentStories : {
+  storiesInProgress : {
     method: 'GET',
     // cache: true,
-    url: `${ROOT_URL}/projects/${PROJECT_ID}/iterations?scope=current`
-  }
+    // url: `${ROOT_URL}/projects/${PROJECT_ID}/iterations?scope=current`
+    url: `${ROOT_URL}/projects/${PROJECT_ID}/iterations?scope=current_backlog`
+  },
+  storiesInPlanning : {
+    method: 'GET',
+    // cache: true,
+    // url: `${ROOT_URL}/projects/${PROJECT_ID}/iterations?scope=current`
+    url: `${ROOT_URL}/projects/${PROJECT_ID}/iterations?scope=backlog`
+  },
+
 };

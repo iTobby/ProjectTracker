@@ -33,31 +33,13 @@ class PivotalData {
       .catch((error) => { return error; });
 
   }
-
-  getCurrentStories() {
-    const self = this;
-    return self.$http(api.currentCompletedStories)
-      .then((response) => { return self.getStories(response.data); })
-      .catch((error) => { return error; });
-  }
-
-  getStoriesUrl(type) {
-    const self = this;
-
-    switch (type) {
-      case types.CURRENT:
-        return api.currentStories;
-        break;
-      case types.DONE:
-        return api.doneStories;
-        break;
-      case types.DONE_CURRENT:
-        return api.doneCurrentStories;
-        break;
-      default:
-        return api.currentStories;
-    }
-  }
+  //
+  // getCurrentStories() {
+  //   const self = this;
+  //   return self.$http(api.currentCompletedStories)
+  //     .then((response) => { return self.getStories(response.data); })
+  //     .catch((error) => { return error; });
+  // }
 
   getStoriesFromIterations(iterations){
     const arrayStories = [];
@@ -67,6 +49,24 @@ class PivotalData {
         arrayStories.push(...stories);
     }
     return arrayStories;
+  }
+
+  getStoriesUrl(type) {
+    const self = this;
+
+    switch (type) {
+      case types.INPROGRESS:
+        return api.storiesInProgress;
+        break;
+      case types.DONE:
+        return api.storiesDone;
+        break;
+      case types.TESTING:
+        return api.storiesInTesting;
+        break;
+      default:
+        return api.storiesInPlanning;
+    }
   }
 }
 
